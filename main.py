@@ -1,20 +1,4 @@
-import os    cgfghfgh24154hfg
-import time
-import logging
-import threading
 
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")   8678bnnw45r45@35_09
-log = logging.getLogger("bin-cleaner")
-
-CLIENT_ID = os.environ["GOOGLE_CLIENT_ID"]
-CLIENT_SECRET = os.environ["GOOGLE_CLIENT_SECRET"]
-
-REFRESH_TOKENS = [t.strip() for t in os.environ["GOOGLE_REFRESH_TOKENS"].split(",") if t.strip()]
 
 # মেইল না পেলে কত সেকেন্ড অপেক্ষা করবে (ডিফল্ট ১০ms)
 INTERVAL = float(os.environ.get("CHECK_INTERVAL_SECONDS", "0.01"))
