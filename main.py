@@ -24,10 +24,14 @@ KEEP_SENDERS = [s.strip() for s in os.environ.get("KEEP_SENDERS", "").split(",")
 
 SCOPES = ["https://mail.google.com/"]
 
+# script চালু হওয়ার মুহূর্তের সময় (epoch seconds) — এর আগের কোনো মেইলে হাত দেওয়া হবে না,
+# শুধু এই সময়ের পরে যা নতুন আসবে সেটাই মোছা হবে। পুরনো ~1200টা মেইল অক্ষত থাকবে।
+START_EPOCH = int(time.time())
+
 
 def build_query():
-    # Sent আর Drafts বাদে সব মেইল মুছবে
-    q = "-in:sent -in:drafts"
+    # Sent আর Drafts বাদে, এবং START_EPOCH-এর আগের পুরনো মেইল বাদে — শুধু নতুন মেইল মুছবে
+    q = f"-in:sent -in:drafts after:{START_EPOCH}"
     for sender in KEEP_SENDERS:
         q += f" -from:{sender}"
     return q
